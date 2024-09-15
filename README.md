@@ -26,7 +26,7 @@ This game is controlled with WASD Keys and Mouse the same as with a normal game,
 </div>
 <br>  
 
-This website is responsive, but there are a few bugs. You can [Click Here](https://kimmuie.github.io/spyfall/) to play Red Koala Spyfall
+This website is under development!
 
 ### Flowchart 
 <div>
@@ -36,11 +36,9 @@ This website is responsive, but there are a few bugs. You can [Click Here](https
 
 ### Website Interface
 <div>
-  <img src="./illustration/UI1.png"  title="UI" height="280"/>
-  <img src="./illustration/UI2.png"  title="UI" height="280"/>
-  <img src="./illustration/UI3.png"  title="UI" height="280"/>
-  <img src="./illustration/UI4.png"  title="UI" height="280"/>
-  <img src="./illustration/UI5.png"  title="UI" height="280"/>
-  <img src="./illustration/UI6.png"  title="UI" height="280"/>
+  <img src="./illustration/UI1.png"  title="UI" height="250"/>
+  <img src="./illustration/UI2.png"  title="UI" height="250"/>
+  <img src="./illustration/UI3.png"  title="UI" height="250"/>
+  <img src="./illustration/UI4.png"  title="UI" height="250"/>
 </div>
 

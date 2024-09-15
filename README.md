@@ -26,7 +26,7 @@ This game is controlled with WASD Keys and Mouse the same as with a normal game,
 </div>
 <br>  
 
-This website is under development!
+This website is under development! But you can still play as demo by download all of these file and use "npm run dev" in terminal.
 
 ### Flowchart 
 <div>

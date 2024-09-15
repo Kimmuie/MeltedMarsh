@@ -1,0 +1,278 @@
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #935732; 
+  border-radius: 1rem;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #F0E1D1; 
+  border-radius: 1rem;
+}
+.slider {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 8px; /* Slider height */
+    background: #935732; /* Background color */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Slider opacity */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    border-radius: 50px;
+    background: #ffffff; /* Green thumb */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.pop-in{
+    animation: pop-in 0.8s ease-in-out;
+}
+
+.pop-out{
+    animation: pop-out 0.3s ease-in-out;
+}
+
+@keyframes pop-in {
+	0% {
+		transform: scale(.7);
+		opacity: 0;
+	}
+	45% {
+		transform: scale(1.05);
+		opacity: 1;
+	}
+	80% {
+		transform: scale(.95);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes pop-out {
+    0% {
+      transform: scale(1);
+    }
+    20% {
+      transform: scale(.95);
+    }
+    45% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(.7);
+      opacity: 0;
+    }
+}
+
+.floatout{
+  animation: floatout 0.5s ease-in-out;
+}
+
+@keyframes floatout {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-5dvh);
+    opacity: 0;
+  }
+}
+
+.levelHover:hover .levelB{
+  opacity: 0.8;
+}
+
+.level-item {
+  flex: 1 0 21%;}
+
+/* Loading scene */
+
+.loading {
+  display: flex;
+  flex-direction: row;
+}
+.loading__letter {
+  font-weight: normal;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-family: "Audiowide";
+  animation-name: bounce;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.loading__letter:nth-child(2) {
+  animation-delay: .1s; 
+}
+.loading__letter:nth-child(3) {
+  animation-delay: .2s;
+}
+.loading__letter:nth-child(4) {
+  animation-delay: .3s; 
+}
+.loading__letter:nth-child(5) {
+  animation-delay: .4s;
+}
+.loading__letter:nth-child(6) {
+  animation-delay: .5s; 
+}
+.loading__letter:nth-child(7) {
+  animation-delay: .6s;
+}
+.loading__letter:nth-child(8) {
+  animation-delay: .8s;
+}
+.loading__letter:nth-child(9) {
+  animation-delay: 1s;
+}
+.loading__letter:nth-child(10) {
+  animation-delay: 1.2s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0px)
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  80%,
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+@media (max-width: 700px) {
+  .loading__letter {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 340px) {
+  .loading__letter {
+    font-size: 40px;
+  }
+}
+
+.outscene{
+  transform: translateY(-100%);
+}
+.inscene{
+  transform: translateY(0);
+}
+
+.popdown1{
+  animation: pop-down1 3s ease-in-out;
+}
+
+.popdown2{
+  animation: pop-down2 3s ease-in-out;
+}
+
+@keyframes pop-down1 {
+  0% {
+    transform: translateY(-100%)
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop-down2 {
+  0% {
+    transform: translateY(0%)
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.buttonUI {
+  font-size: 18px;
+  background-color: #935732;
+  color: #fff;
+  text-shadow: 0 2px 0 rgb(0 0 0 / 25%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  z-index: 1;
+  user-select: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: unset;
+  text-decoration: none;
+  font-weight: 900;
+  transition: box-shadow 0.1s ease-in-out,transform 0.1s ease-in-out;
+}
+
+.buttonUI:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  transition: box-shadow 0.2s ease-in-out,transform 0.2s ease-in-out;
+  z-index: -1;
+  background-color: #FC9425 !important;
+  box-shadow: 0 -4px rgba(135, 70, 0, 0.5) inset,
+    0 4px rgba(223, 100, 0, 0.5) inset, -4px 0 rgba(223, 100, 0, 0.5) inset,
+    4px 0 rgba(147, 61, 0, 0.5) inset;
+}
+
+.buttonUI:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
+  transition: box-shadow 0.2s ease-in-out,transform 0.2s ease-in-out;
+}
+
+.buttonUI:hover:before {
+  box-shadow: 0 -4px rgba(51, 51, 51, 0.4) inset, 0 4px rgba(51, 51, 51, 0.2) inset,
+    -4px 0 rgba(51, 51, 51, 0.2) inset, 4px 0 rgba(51, 51, 51, 0.4) inset;
+}
+
+.buttonUI:hover:after {
+  box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
+}
+
+.buttonUI:active {
+  transform: translateY(4px);
+}
+
+.buttonUI:active:after {
+  box-shadow: 0 0px 0 0 rgb(0 0 0 / 15%);
+}
+
+kbd{
+  background: #F0E1D1;
+  border: 1px solid black;
+  padding: 2px 6px 2px 6px;
+}

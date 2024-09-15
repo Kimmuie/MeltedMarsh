@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Lit It Up</title>
+  <link href="./output.css" rel="stylesheet">
+  <link href="./custom.css" rel="stylesheet">
+  <link rel="icon" href="./img/LitLogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Mali&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Niramit:wght@200&display=swap" rel="stylesheet">
+</head>
+
+<body id="body" class="m-0 overflow-hidden">
+  <audio id="soundBG" src="./audio/bgMusic.mp3"></audio>
+  <audio id="soundPOP" src="./audio/popSound.mp3"></audio>
+  <div id="cutscene" class="outscene absolute w-full h-full bg-skyB z-40 flex justify-center items-center flex-col">
+    <div class="bg-[url('./img/cutscene.gif')] z-50 bg-center bg-cover h-56 w-56"></div>
+    <div class="loading text-woodO text-xl mt-7 ml-15">
+      <div class="loading__letter">L</div>
+      <div class="loading__letter">o</div>
+      <div class="loading__letter">a</div>
+      <div class="loading__letter">d</div>
+      <div class="loading__letter">i</div>
+      <div class="loading__letter">n</div>
+      <div class="loading__letter">g</div>
+      <div class="loading__letter">.</div>
+      <div class="loading__letter">.</div>
+      <div class="loading__letter">.</div>
+    </div>
+  </div>
+  <!-- Loading Cutscene -->
+  <div id="selectUI" class="homeMenu absolute w-full h-full flex justify-center items-center invisible z-10">
+    <div id="selectBOX" class="flex flex-col items-center h-112 w-144 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+        <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-5">Select Level</div>
+        <div id="levelContainer" class="w-full flex flex-wrap justify-center gap-4">
+        <!-- Level Mapping -->
+        </div>
+        <button id="selectStart" class="buttonUI font-bold h-20 w-44 mt-5 hover:scale-110">Start Game</button>
+    </div>
+  </div> <!--Notification-->  
+  <div id="settingUI" class="homeMenu absolute w-full h-full flex justify-center items-center invisible z-10">
+    <div id="settingBOX" class="flex flex-col items-center h-132 w-96 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+      <div class="relative flex justify-center font-bold z-30 h-8 w-24 box-border rounded-b-lg bg-woodO text-whiteC mb-5">Setting</div>
+      <div class="w-full relative flex justify-center">
+        <img src="./img/music.svg" width="64" height="64" class="m-5"></i>
+        <div class="flex flex-col w-full m-5">
+          <div class="relative flex justify-center font-bold z-30 text-woodO text-xl">Music</div>
+          <input type="range" id="music-slider" class="w-full slider mt-2" min="0" max="1" step="0.01" value="0.5">
+        </div>
+      </div>
+      <div class="w-full relative flex justify-center">
+        <img src="./img/sound.svg" width="64" height="64" class="m-5"></i>
+        <div class="flex flex-col w-full m-5">
+          <div class="relative flex justify-center font-bold z-30 text-woodO text-xl">SoundFX</div>
+          <input type="range" id="sound-slider" class="w-full slider mt-2" min="0" max="1" step="0.01" value="0.5">
+        </div>
+      </div>
+      <div class="w-full relative flex justify-center">
+        <img src="./img/graphic.svg" width="64" height="64" class="m-5"></i>
+        <div class="flex flex-col w-full m-5">
+          <div class="relative flex justify-center font-bold z-30 text-woodO text-xl">Graphic Quality</div>
+          <div class="flex flex-row justify-center w-full">
+            <button class="cursor-default text-whiteC rounded-l-lg border-woodO bg-woodO  font-bold border-4 h-8 w-24  ">Low</button>
+            <button class="cursor-not-allowed text-woodO  rounded-r-lg  border-woodO bg-woodI font-bold border-4 h-8 w-24 flex justify-center items-center">
+              <img src="./img/lock.svg" width="24" height="24"></i>
+            </button>
+            <!-- <button class="cursor-pointer text-woodO  rounded-r-lg  border-woodO bg-woodI font-bold border-4 h-8 w-24 ">High</button> -->
+          </div>
+        </div>
+      </div>
+      <button id="settingApply" class="buttonUI font-bold h-20 w-44 mt-5 hover:scale-110">Apply</button>
+    </div>
+  </div>   <!--Notification-->
+  <div id="shareUI" class="homeMenu absolute w-full h-full flex justify-center items-center invisible z-10">
+    <div id="shareBOX" class="flex flex-col items-center h-72 w-96 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+      <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-1">Share</div>
+      <div class="flex flex-col" >
+        <button id="nativeShare" class="flex justify-center items-center flex-row h-22 bg-woodO rounded-xl hover:opacity-80 mt-5">
+          <img src="./img/share.svg" width="64" height="64" class="ml-5 mr-5"></i>
+          <div class="w-full font-bold z-30 text-woodI text-xl mr-5">Share to Other App</div>
+        </button>
+        <button id="linkShare" class="flex justify-center items-center flex-row h-22 bg-woodO rounded-xl hover:opacity-80 mt-5">
+          <img src="./img/link.svg" width="64" height="64" class="ml-5 mr-5"></i>
+          <div class="w-full font-bold z-30 text-woodI text-xl mr-5">Copy Link URL</div>
+          <span id="floatCopy" class="invisible absolute w-28 bg-woodI text-woodO text-xs rounded-xl z-30">❐ URL Copied</span>
+        </button>
+      </div>
+    </div>
+  </div>  <!--Notification-->
+  <div id="creditUI" class="homeMenu absolute w-full h-full flex justify-center items-center invisible z-10">
+    <div id="creditBOX" class="flex flex-col items-center h-132 w-96 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+      <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-1">Credit</div>
+      <div class="flex flex-col" >
+        <a class="flex justify-center items-center flex-row h-22 bg-woodO rounded-xl hover:opacity-80 mt-5" href="https://instagram.com/kimmuie_" target="_blank">
+          <img src="./img/ig.svg" width="64" height="64" class="ml-5 mr-5"></i>
+          <div class="w-full font-bold z-30 text-woodI text-xl mr-5">kimmuie_</div>
+        </a>
+        <a class="flex justify-center items-center flex-row h-22 bg-woodO rounded-xl hover:opacity-80 mt-5" href="https://instagram.com/kimmuie.workingspace" target="_blank">
+          <img src="./img/ig.svg" width="64" height="64" class="ml-5 mr-5"></i>
+          <div class="w-full font-bold z-30 text-woodI text-xl mr-5">kimmuie.workingspace</div>
+        </a>
+        <a class="flex justify-center items-center flex-row h-22 bg-woodO rounded-xl hover:opacity-80 mt-5" href="https://github.com/Kimmuie" target="_blank">
+          <img src="./img/github.svg" width="64" height="64" class="ml-5 mr-5"></i>
+          <div class="w-full font-bold z-30 text-woodI text-xl mr-5">Kimmuie</div>
+        </a>
+        <a class="flex justify-center items-center flex-row h-22 bg-woodO rounded-xl hover:opacity-80 mt-5" href="https://discord.com/invite/PgKVSbmnyT" target="_blank">
+          <img src="./img/discord.svg" width="64" height="64" class="ml-5 mr-5"></i>
+          <div class="w-full font-bold z-30 text-woodI text-xl mr-5">Kimmuie Bunker</div>
+        </a>
+      </div>
+    </div>
+  </div>   <!--Notification-->
+  <div id="informationUI" class="homeMenu absolute w-full h-full flex justify-center items-center invisible z-10">
+    <div id="informationBOX" class="flex flex-col items-center h-132 w-96 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+      <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-1">Information</div>
+      <div class="w-full relative flex p-5 h-120">
+        <p class="break-words overflow-y-auto">
+          Lit It Up, this game was created to introduce my coding skills, especially three.js which is a library that is able to render a 3D model. Also, this project was created by Pranchayut Netsawang, or you can call me Kimmuie, please do not copy by any means unless I give you permission because this project will be included in my portfolio. However, this project supports only desktop because of render and movement issues. And if you guys wonder how to play, there is a guide on top right while you are playing.
+          <br><br>
+          Lit It Up เกมนี้ถูกสร้างขึ้นเพื่อนำเสนอทักษะการเขียนโค้ดของผม โดยเฉพาะ three.js ซึ่งเป็น Library ที่สามารถแสดงผล 3D Model นอกจากนี้โปรเจ็กต์นี้จัดทำโดย ปรานต์ชยุต เนตรสว่าง หรือเรียกผมว่า คิม และได้โปรดกรุณาอย่าคัดลอกไม่ว่าด้วยวิธีใดๆ เว้นแต่ผมจะอนุญาต เพราะโปรเจ็กต์นี้จะรวมอยู่ในพอร์ตโฟลิโอของผมด้วย อย่างไรก็ตามโปรเจ็กต์นี้รองรับเฉพาะ Desktop เท่านั้นเนื่องจากปัญหาการแสดงผลและการเคลื่อนไหว และถ้าเพื่อนๆ สงสัยว่าจะเล่นยังไง ก็จะมีคำแนะนำอยู่ด้านบนขวาขณะที่คุณกำลังเล่น
+        </p>
+      </div>
+    </div>
+  </div>   <!--Notification-->
+  <div class="flex justify-center items-start">
+    <div id="homeButton" class="absolute">
+      <img src="./img/LitLogoFont.png" class="relative h-auto w-144 m-5 left-2">
+      <div class="w-full flex justify-center">
+        <button id="startButton" class="border-0 w-72 h-auto box-border relative hover:scale-110">
+          <img src="img/btSelect.png" alt="Select Level" class="w-full h-full object-cover" />
+        </button>
+      </div>
+      <div class="w-full flex justify-center">
+        <button id="settingButton" class="border-0 w-72 h-auto box-border relative hover:scale-110">
+          <img src="img/btSettings.png" alt="Setting" class="w-full h-full object-cover" />
+        </button>
+      </div>
+      <div class="w-full flex justify-center">
+        <button class="border-0 w-24 h-auto m-5 box-border relative hover:scale-110">
+          <img src="img/icShare.png" alt="Share" class="w-full h-full object-cover" id="shareButton"/>
+        </button>
+        <button class="border-0 w-24 h-auto m-5 box-border relative hover:scale-110">
+          <img src="img/icCredit.png" alt="Credit" class="w-full h-full object-cover" id="creditButton"/>
+        </button>
+        <button class="border-0 w-24 h-auto m-5 box-border relative hover:scale-110">
+          <img src="img/icAbout.png" alt="About" class="w-full h-full object-cover" id="informationButton"/>
+        </button>
+      </div>
+    </div>
+  </div>
+    <!-- Menu -->
+    <div id="guideUI" class="gameMenu absolute w-full h-full flex justify-center items-center invisible">
+      <div id="guideBOX" class="flex flex-col items-center h-132 w-96 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+        <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-1">How To Play</div>
+        <div class="w-full relative flex p-5 h-120">
+          <p class="break-words overflow-y-auto">
+            <span class="font-semibold">Objective</span><br>
+            is to reach the campfire before the torch burn out (timer ran out) for lit the torch up and burning some marshmallows.
+            <br><br>
+            <span class="font-semibold">เป้าหมาย</span><br>
+            คือการไปถึงแคมป์ไฟก่อนที่คบเพลิงจะมอดดับ<br>(หมดเวลา) เพื่อจุดคบเพลิงและปิ้งมาร์ชแมลโลว์
+            <br><br>
+            <span class="font-semibold">Keybind</span><br>
+            Move Character : Click <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd><br>
+            Move Camera : Hold <kbd>Right Click</kbd><br>
+            Rotate Camera : Hold <kbd>Middle Button</kbd><br>
+            Zoom Camera : Scroll <kbd>Middle Button</kbd><br>      
+          </p>
+        </div>
+      </div>
+    </div><!--Notification-->
+    <div id="escUI" class="homeMenu absolute w-full h-full flex justify-center items-center invisible">
+      <div id="escBOX" class="flex flex-col items-center h-132 w-96 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
+        <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-5">Game Pause</div>
+        <button id="escResume" class="buttonUI font-bold h-20 w-44 mt-5 hover:scale-110">Resume</button>
+        <button id="escSetting" class="buttonUI font-bold h-20 w-44 mt-5 hover:scale-110">Setting</button>
+        <button id="escRestart" class="buttonUI font-bold h-20 w-44 mt-5 hover:scale-110">Restart</button>
+        <button id="escMenu" class="buttonUI font-bold h-20 w-44 mt-5 hover:scale-110">Back to Menu</button>
+      </div>
+    </div><!--Noticafication-->
+    <div class="flex justify-start">
+      <img src="./img/LitLogoFont.png" class="absolute h-auto w-48 m-3 ">
+    </div>
+    <div class=" flex justify-center">
+      <div class="frame absolute flex justify-center items-center font-bold z-10 h-12 w-44 box-border rounded-b-lg bg-woodA text-whiteC text-2xl mb-1 border-4 border-woodO">4:59</div>
+    </div>
+    <div class=" flex justify-end">
+      <div class="absolute">
+        <button id="guide" class="buttonUI cursor-pointer h-20 w-20 m-2 hover:scale-110 z-30">
+          <img src="./img/guide.svg" width="128" class="p-4"></i>
+        </button>
+        <button id="esc" class="buttonUI cursor-pointer h-20 w-20 m-2 hover:scale-110 z-30">
+          <img src="./img/esc.svg" width="128" class="p-4"></i>
+        </button>
+      </div>
+    </div>
+  <script src="index.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

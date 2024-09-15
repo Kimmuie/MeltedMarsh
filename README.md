@@ -26,7 +26,7 @@ This game is controlled with WASD Keys and Mouse the same as with a normal game,
 </div>
 <br>  
 
-This website is under development!!! But you can still play as demo by click on green button that say <>Code >> Download Zip >> Extract All >> Open in VSCode and use "npm run dev" in terminal.(don't forget to cd location)
+This website is under development!! But you can still play as demo by click on green button that say <>Code >> Download Zip >> Extract All >> Open in VSCode and use "npm run dev" in terminal.(don't forget to cd location)
 
 ### Flowchart 
 <div>

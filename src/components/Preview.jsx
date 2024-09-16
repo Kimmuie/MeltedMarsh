@@ -27,28 +27,27 @@ const createDebugger = ({ THREE: three, system, scene, zone }) => {
 };
 
 const createZone = () => {
-  const zone = new BoxZone(600);
+  const zone = new BoxZone(6);
   zone.friction = 0.5;
-  zone.max = 7;
+  zone.max = 1;
   return zone;
 };
 
 const createEmitter = zone => {
   const emitter = new Emitter();
   emitter
-    .setRate(new Rate(new Span(4, 8), new Span(0.2, 0.5)))
     .addInitializers([
       new Mass(0.1),
       new Radius(10),
       new Life(2, 4),
-      new RadialVelocity(400, new Vector3D(0, 1, 0), 60),
+      new RadialVelocity(400, new Vector3D(0, 1, 0), 6),
     ])
     .addBehaviours([
       new Rotate('random', 'random'),
       new Scale(1, 0.01),
       new Gravity(1),
       new CrossZone(zone, 'bound'),
-      new Color(0xff0000, 'random', Infinity, ease.easeOutQuart),
+      new Color(0xffffff, 'random', Infinity, ease.easeOutQuart),
     ])
     .setPosition({ x: 0, y: 0 })
     .emit();
@@ -102,12 +101,6 @@ export const Preview = () => {
       p.target.scale.set(scale, scale, scale);
     };
 
-    renderer.onParticleDead = function(p) {
-      this.targetPool.expire(p.target);
-      scene.remove(p.target);
-      p.target = null;
-    };
-
     system.addEmitter(emitter).addRenderer(renderer);
     createDebugger({ THREE, system, scene, zone });
 
@@ -116,10 +109,6 @@ export const Preview = () => {
       requestAnimationFrame(animate);
     };
     animate();
-
-    return () => {
-      system.destroy();
-    };
   }, [scene]);
 
   useFrame(() => {

@@ -24,16 +24,17 @@ export function NotiGuide() {
         <div class="w-full relative flex p-5 h-120">
           <p class="break-words overflow-y-auto">
             <span class="font-semibold">Objective</span><br />
-            is to reach the campfire before the torch burn out (timer ran out) for lit the torch up and burning some marshmallows.
+            is to reach the campfire before its burn out (timer ran out) for burning some marshmallows.
             <br /><br />
             <span class="font-semibold">เป้าหมาย</span><br />
-            คือการไปถึงแคมป์ไฟก่อนที่คบเพลิงจะมอดดับ<br />(หมดเวลา) เพื่อจุดคบเพลิงและปิ้งมาร์ชแมลโลว์
+            คือการไปถึงแคมป์ไฟก่อนที่มันจะมอดดับ(หมดเวลา) เพื่อปิ้งมาร์ชแมลโลว์และผ่านด่าน
             <br /><br />
             <span class="font-semibold">Keybind</span><br />
             Walk Character : Click <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd><br />
             Run Character : Hold <kbd>Left Shift</kbd><br />
-            Zoom Camera : Scroll <kbd>Middle Button</kbd><br />   
-            Rotate Camera : Hold <kbd>Left Button</kbd><br />   
+            Jump Character : Click <kbd>Spacebar</kbd><br />
+            Zoom Camera : Scroll <kbd>Wheel Button</kbd><br />   
+            Rotate Camera : Hold <kbd>Left Mouse</kbd><br />   
           </p>
         </div>
       </div>

@@ -30,6 +30,7 @@ const lerpAngle = (start, end, t) => {
 export const CharacterController = () => {
   const WALK_SPEED = 0.8; // Hardcoded walk speed
   const RUN_SPEED = 1.8; // Hardcoded run speed
+  const JUMP_FORCE = 5; 
   const ROTATION_SPEED = degToRad(1); // Hardcoded rotation speed
 
   const rb = useRef();
@@ -39,6 +40,7 @@ export const CharacterController = () => {
   const [animation, setAnimation] = useState("idle");
 
   const characterRotationTarget = useRef(0);
+  const characterJump = useRef(0);
   const rotationTarget = useRef(0);
   const cameraTarget = useRef();
   const cameraPosition = useRef();
@@ -92,7 +94,7 @@ export const CharacterController = () => {
 
       const movement = {
         x: 0,
-        y: vel.y,
+        y: 0,
         z: 0,
       };
 
@@ -111,15 +113,21 @@ export const CharacterController = () => {
       if (get().right) {
         movement.x = -1;
       }
+      
       const isGrounded = Math.abs(vel.y) < 0.01; // Check if the character is grounded
+      const isWalkable = Math.abs(vel.y) < 0.3; // Check if the character is grounded
       if (get().jump && isGrounded) {
-        movement.y = 10; // Apply jump velocity only when grounded
+        movement.y = JUMP_FORCE; // Apply jump velocity only when grounded
+        console.log(movement.y)
       }
 
       if (movement.x !== 0) {
         rotationTarget.current += ROTATION_SPEED * movement.x;
       }
-
+      if (movement.y !== 0){
+        characterJump.current = movement.y;
+        vel.y = characterJump.current;  
+      }
       if (movement.x !== 0 || movement.z !== 0) {
         characterRotationTarget.current = Math.atan2(movement.x, movement.z);
         vel.x =
@@ -128,11 +136,13 @@ export const CharacterController = () => {
         vel.z =
           Math.cos(rotationTarget.current + characterRotationTarget.current) *
           speed;
-        if (speed === RUN_SPEED) {
-          setAnimation("run");
-        } else {
+        if (movement.y !== 0){
+          setAnimation("dive");
+        } else if (isWalkable && speed === WALK_SPEED){
           setAnimation("walk");
-        }
+        } else if (isWalkable && speed === RUN_SPEED) {
+          setAnimation("run");
+        } 
       } else {
         setAnimation("idle");
       }

@@ -71,12 +71,15 @@ export function NotiSelect({ onLevelSelect }) {
         <div id="levelContainer" className="w-full flex flex-wrap justify-center gap-4">
           {levelData.map((level, index) => (
             <div key={index} className="level-item flex justify-center hover:scale-95">
+                  {[...Array(3)].map((_, i) => (
               <button
-                className="flex justify-center items-center flex-col h-28 w-28 rounded-lg bg-[url('${level.preview}')] bg-center bg-cover border-woodO box-border border-4 levelHover hover:scale-110"
+                className="flex justify-center items-center flex-col h-28 w-28 rounded-lg bg-center bg-cover border-woodO box-border border-4 levelHover hover:scale-110"
                 onClick={event => handleButtonClick(event, index)}
+                style={{ backgroundImage: `url('./img/level/level01.png')` }}
               >
-                <div className="text-woodO font-bold text-xl h-8 w-9 rounded-full bg-whiteC mt-4 mb-2 levelB">{level.level}</div>
-                <div className="flex flex-row justify-center levelB">
+
+                <div className="text-woodO font-bold text-xl h-8 w-9 rounded-full bg-whiteC mt-4 mb-2 levelB z-10">{level.level}</div>
+                <div className="flex flex-row justify-center levelB z-10">
                   {[...Array(3)].map((_, i) => (
                     <img
                       key={i}
@@ -88,6 +91,7 @@ export function NotiSelect({ onLevelSelect }) {
                   ))}
                 </div>
               </button>
+                  ))}
             </div>
           ))}
         </div>

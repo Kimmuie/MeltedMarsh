@@ -64,7 +64,7 @@ export const Experience = () => {
     Level1: {
       scale: 0.2,
       position: [0, -3, 4],
-      campfirePosition: [1, -1.1, 5],  
+      campfirePosition: [1, -1.15, 5],  
     },
   }), []);
 

@@ -111,7 +111,7 @@ export const Preview = () => {
     
     setTimeout(() => {
       setParticleSystem(system);
-    }, 2000);
+    }, 1000);
 
     return () => {
       system.destroy();

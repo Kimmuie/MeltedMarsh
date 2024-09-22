@@ -3,8 +3,8 @@
       "level": 1,
       "score": 0,
       "preview": "./img/level/level01.png",
-      "mapName": "demo_level",
-      "timerLimit": 123
+      "mapName": "Level1",
+      "timerLimit": 63
     },
     {
       "level": 2,

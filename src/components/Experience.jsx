@@ -1,12 +1,13 @@
 import { Environment, OrthographicCamera } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { CharacterController } from "./CharacterController";
 import { Map } from "./Map";
 import { Campfire } from "./Campfire";
+import { useThree, useFrame } from "@react-three/fiber";
+import * as THREE from 'three';
 import ParticleSystem, {
   CustomRenderer,
-  Debug,
   Emitter,
   Force,
   Life,
@@ -19,15 +20,56 @@ import ParticleSystem, {
   Span,
 } from 'three-nebula';
 
+const cubeColors = [0xff5a00, 0xff9a00, 0xffce00];
+
 export const Experience = () => {
   const shadowCameraRef = useRef();
   const [levelData, setLevelData] = useState([]);
   const [selectedMap, setSelectedMap] = useState(null);
   const [selectedLevelIndex, setSelectedLevelIndex] = useState(null);
+  const [particleSystem, setParticleSystem] = useState(null);
+  const { scene } = useThree();
+
+  const maps = useMemo(() => ({
+    castle_on_hills: {
+      scale: 3,
+      position: [-6, -8, 0],
+      campfirePosition: [0, 1, 0],  
+    },
+    animal_crossing_map: {
+      scale: 20,
+      position: [-15, -1, 10],
+      campfirePosition: [5, 1, 0], 
+    },
+    city_scene_tokyo: {
+      scale: 0.72,
+      position: [0, -1, -3.5],
+      campfirePosition: [1, 0, -2], 
+    },
+    de_dust_2_with_real_light: {
+      scale: 0.3,
+      position: [-5, -3, 13],
+      campfirePosition: [0, 0.5, 0], 
+    },
+    medieval_fantasy_book: {
+      scale: 0.4,
+      position: [-4, 0, -6],
+      campfirePosition: [-2, 0.2, -3], 
+    },
+    demo_level: {
+      scale: 0.4,
+      position: [0, -3, 0],
+      campfirePosition: [0, -0.8, -0.5],  
+    },
+    Level1: {
+      scale: 0.2,
+      position: [0, -3, 4],
+      campfirePosition: [1, -1.1, 5],  
+    },
+  }), []);
 
   useEffect(() => {
     const storedLevelIndex = localStorage.getItem('selectedLevelIndex');
-    
     if (storedLevelIndex !== null) {
       setSelectedLevelIndex(parseInt(storedLevelIndex, 10));
     }
@@ -45,39 +87,93 @@ export const Experience = () => {
     }
   }, [selectedLevelIndex]);
 
-  const maps = {
-    castle_on_hills: {
-      scale: 3,
-      position: [-6, -8, 0],
-      campfirePosition: [0, 1, 0],  // Adjusted height for visibility
-    },
-    animal_crossing_map: {
-      scale: 20,
-      position: [-15, -1, 10],
-      campfirePosition: [5, 1, 0],  // Adjusted position
-    },
-    city_scene_tokyo: {
-      scale: 0.72,
-      position: [0, -1, -3.5],
-      campfirePosition: [1, 0, -2],  // Adjusted to be in view
-    },
-    de_dust_2_with_real_light: {
-      scale: 0.3,
-      position: [-5, -3, 13],
-      campfirePosition: [0, 0.5, 0], // Adjusted for height
-    },
-    medieval_fantasy_book: {
-      scale: 0.4,
-      position: [-4, 0, -6],
-      campfirePosition: [-2, 0.2, -3],  // Adjusted positioning
-    },
-    demo_level: {
-      scale: 0.4,
-      position: [0, -3, 0],
-      campfirePosition: [0, -0.8, -0.5],  // Adjusted height for visibility
-    },
+  //particle
+  const createZone = () => {
+    return new PointZone(0, 0, 0);
   };
-  
+
+  const createEmitter = (campfirePosition) => {
+    const emitter = new Emitter();
+    emitter
+      .setRate(new Rate(new Span(2, 4), new Span(0.1, 0.2)))
+      .addInitializers([
+        new Mass(1),
+        new Life(1, 2.5),
+        new Radius(0.1, 0.3),
+      ])
+      .addBehaviours([
+        new Rotate('random', 'random'),
+        new Scale(0.15, 0),
+        new Force(0, 0.01, 0),
+      ])
+      .setPosition({ 
+        x: campfirePosition[0] - 0.2, 
+        y: campfirePosition[1], 
+        z: campfirePosition[2] + 0.02 
+      })
+      .setRotation(0, 0, 0)
+      .emit();
+    return emitter;
+  };
+
+  const createParticleLight = (campfirePosition) => {
+    const light = new THREE.PointLight(0xffffff, 8, 20);
+    light.position.set(
+      campfirePosition[0] - 0.2,
+      campfirePosition[1] + 2.3,
+      campfirePosition[2]
+    ); 
+    light.layers.enable(5); 
+    return light;
+  };
+
+  useEffect(() => {
+    if (selectedMap && maps[selectedMap]) {
+      const system = new ParticleSystem();
+      const renderer = new CustomRenderer();
+      const zone = createZone();
+      const emitter = createEmitter(maps[selectedMap].campfirePosition);
+      const particleLight = createParticleLight(maps[selectedMap].campfirePosition);
+      scene.add(particleLight);
+
+      renderer.onParticleCreated = function(p) {
+        const randomColor = cubeColors[Math.floor(Math.random() * cubeColors.length)];
+        const mesh = new THREE.Mesh(
+          new THREE.BoxGeometry(1, 1, 1),
+          new THREE.MeshPhongMaterial({ color: randomColor })
+        );
+        p.target = mesh;
+        p.target.position.copy(p.position);
+        scene.add(p.target);
+      };
+
+      renderer.onParticleUpdate = function(p) {
+        const scale = p.scale * 1;
+        p.target.position.copy(p.position);
+        p.target.rotation.set(p.rotation.x, p.rotation.y, p.rotation.z);
+        p.target.scale.set(scale, scale, scale);
+      };
+
+      renderer.onParticleDead = function(p) {
+        scene.remove(p.target);
+      };
+
+      system.addEmitter(emitter).addRenderer(renderer);
+
+      setParticleSystem(system);
+
+      return () => {
+        system.destroy();
+        scene.remove(particleLight);
+      };
+    }
+  }, [selectedMap, maps, scene]);
+
+  useFrame(() => {
+    if (particleSystem) {
+      particleSystem.update();
+    }
+  });
 
   return (
     <>
@@ -99,7 +195,7 @@ export const Experience = () => {
           attach={"shadow-camera"}
         />
       </directionalLight>
-      {selectedMap && (
+      {selectedMap && maps[selectedMap] && (
         <Physics key={selectedMap}>
           <Map
             scale={maps[selectedMap].scale}
@@ -108,7 +204,6 @@ export const Experience = () => {
           />
           <CharacterController />
           <Campfire position={maps[selectedMap].campfirePosition} />
-
         </Physics>
       )}
     </>

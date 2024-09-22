@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import React, { useEffect, useRef } from "react";
 
-export function Campfire({ position = [0, 0, 0], scale = [0.1,0.1,0.1], ...props }) {
+export function Campfire({ position = [0, 0, 0], scale = [0.06,0.06,0.06], ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/models/campfire.glb");
   

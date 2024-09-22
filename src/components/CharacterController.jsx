@@ -142,7 +142,9 @@ export const CharacterController = () => {
           setAnimation("walk");
         } else if (isWalkable && speed === RUN_SPEED) {
           setAnimation("run");
-        } 
+        }
+      } else if (movement.y > 0 && speed != 0 ){
+        setAnimation("dive");
       } else {
         setAnimation("idle");
       }

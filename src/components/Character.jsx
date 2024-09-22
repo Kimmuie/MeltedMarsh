@@ -27,6 +27,7 @@ export function Character({ animation, ...props }) {
             name="body"
             geometry={nodes.body.geometry}
             material={materials.Material}
+            // material={materials["Material.001"]}
             skeleton={nodes.body.skeleton}
             castShadow
             receiveShadow
@@ -34,7 +35,7 @@ export function Character({ animation, ...props }) {
           <skinnedMesh
             name="eye"
             geometry={nodes.eye.geometry}
-            material={materials.Material}
+            material={materials["Material.001"]}
             skeleton={nodes.eye.skeleton}
             castShadow
             receiveShadow

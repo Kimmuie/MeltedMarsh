@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useMemo } from "react";
 import { CharacterController } from "./CharacterController";
 import { Map } from "./Map";
 import { Campfire } from "./Campfire";
+import { Chocolate } from "./Chocolate";
 import { useThree, useFrame } from "@react-three/fiber";
 import * as THREE from 'three';
 import ParticleSystem, {
@@ -28,6 +29,7 @@ export const Experience = () => {
   const [selectedMap, setSelectedMap] = useState(null);
   const [selectedLevelIndex, setSelectedLevelIndex] = useState(null);
   const [particleSystem, setParticleSystem] = useState(null);
+  const [autoSpin, setAutoSpin] = useState(0);
   const { scene } = useThree();
 
   const maps = useMemo(() => ({
@@ -63,11 +65,19 @@ export const Experience = () => {
     },
     Level1: {
       scale: 0.2,
-      position: [0, -3, 4],
-      campfirePosition: [1, -1.15, 5],  
+      position: [0, -1, 4],
+      campfirePosition: [1, 0.83, 5],  
+      chocolatePosition: [0, -0.5, 5.2],  
     },
   }), []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAutoSpin((prevSpin) => prevSpin + 0.02);
+    }, 50);
 
+    return () => clearInterval(timer);
+  }, []);
+  
   useEffect(() => {
     const storedLevelIndex = localStorage.getItem('selectedLevelIndex');
     if (storedLevelIndex !== null) {
@@ -204,6 +214,7 @@ export const Experience = () => {
           />
           <CharacterController />
           <Campfire position={maps[selectedMap].campfirePosition} />
+          <Chocolate position={maps[selectedMap].chocolatePosition} rotation={[0, autoSpin, 0]}/>
         </Physics>
       )}
     </>

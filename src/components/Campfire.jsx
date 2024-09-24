@@ -9,7 +9,6 @@ export function Campfire({ position = [0, 0, 0], scale = [0.06,0.06,0.06], ...pr
   return (
     <group ref={group} {...props} position={position} scale={scale} dispose={null}>
     <group name="Scene">
-      {/* Try rendering both Cube and Cube008 to find the campfire */}
       {nodes?.Rock && (
         <mesh
           name="campfire"

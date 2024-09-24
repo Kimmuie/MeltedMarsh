@@ -71,7 +71,6 @@ export function NotiSelect({ onLevelSelect }) {
         <div id="levelContainer" className="w-full flex flex-wrap justify-center gap-4">
           {levelData.map((level, index) => (
             <div key={index} className="level-item flex justify-center hover:scale-95">
-                  {[...Array(3)].map((_, i) => (
               <button
                 className="flex justify-center items-center flex-col h-28 w-28 rounded-lg bg-center bg-cover border-woodO box-border border-4 levelHover hover:scale-110"
                 onClick={event => handleButtonClick(event, index)}
@@ -91,7 +90,6 @@ export function NotiSelect({ onLevelSelect }) {
                   ))}
                 </div>
               </button>
-                  ))}
             </div>
           ))}
         </div>

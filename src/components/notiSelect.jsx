@@ -68,7 +68,7 @@ export function NotiSelect({ onLevelSelect }) {
         <div className="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-5">
           Select Level
         </div>
-        <div id="levelContainer" className="w-full flex flex-wrap justify-center gap-4">
+        <div id="levelContainer" className="w-full flex justify-center flex-wrap gap-4">
           {levelData.map((level, index) => (
             <div key={index} className="level-item flex justify-center hover:scale-95">
               <button

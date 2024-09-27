@@ -6,6 +6,14 @@ import { MathUtils, Vector3 } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { Character } from "./Character";
 
+let soundPOP = new Audio('./audio/popSound.mp3');
+const notiLose = () => {
+  const lose = document.getElementById("loseUI");
+  soundPOP.play();
+  lose.classList.remove("invisible" , "pop-out");
+  lose.classList.add("pop-in");
+};
+
 const normalizeAngle = (angle) => {
   while (angle > Math.PI) angle -= 2 * Math.PI;
   while (angle < -Math.PI) angle += 2 * Math.PI;
@@ -31,7 +39,8 @@ export const CharacterController = () => {
   const WALK_SPEED = 0.8; // Hardcoded walk speed
   const RUN_SPEED = 1.8; // Hardcoded run speed
   const JUMP_FORCE = 5; 
-  const ROTATION_SPEED = degToRad(1); // Hardcoded rotation speed
+  const ROTATION_SPEED = degToRad(1);
+  const FALL_THRESHOLD = -20; 
 
   const rb = useRef();
   const container = useRef();
@@ -50,6 +59,9 @@ export const CharacterController = () => {
   const [, get] = useKeyboardControls();
   const isPanning = useRef(false);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [hasLost, setHasLost] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
 
   useEffect(() => 
     {
@@ -91,12 +103,20 @@ export const CharacterController = () => {
   useFrame(({ camera, mouse }) => {
     if (rb.current) {
       const vel = rb.current.linvel();
+      const pos = rb.current.translation();
 
       const movement = {
         x: 0,
         y: 0,
         z: 0,
       };
+
+      if (pos.y <= FALL_THRESHOLD && !hasLost) {
+        setHasLost(true);
+        setIsPaused(true);
+        console.log("You lose! Character fell off the map.");
+        notiLose();
+      }
 
       if (get().forward) {
         movement.z = 1;
@@ -136,7 +156,7 @@ export const CharacterController = () => {
         vel.z =
           Math.cos(rotationTarget.current + characterRotationTarget.current) *
           speed;
-        if (movement.y !== 0){
+         if (movement.y !== 0){
           setAnimation("dive");
         } else if (isWalkable && speed === WALK_SPEED){
           setAnimation("walk");
@@ -144,6 +164,8 @@ export const CharacterController = () => {
           setAnimation("run");
         }
       } else if (movement.y > 0 && speed != 0 ){
+        setAnimation("dive");
+      } else if (isPaused){
         setAnimation("dive");
       } else {
         setAnimation("idle");
@@ -154,7 +176,11 @@ export const CharacterController = () => {
         0.1
       );
 
-      rb.current.setLinvel(vel, true);
+      if (!isPaused) {
+        rb.current.setLinvel(vel, true);
+      } else {
+        rb.current.setLinvel(new Vector3(0, 0, 0), true);
+      }
     }
 
     // CAMERA

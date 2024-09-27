@@ -137,8 +137,7 @@ export const CharacterController = () => {
       const isGrounded = Math.abs(vel.y) < 0.01; // Check if the character is grounded
       const isWalkable = Math.abs(vel.y) < 0.3; // Check if the character is grounded
       if (get().jump && isGrounded) {
-        movement.y = JUMP_FORCE; // Apply jump velocity only when grounded
-        console.log(movement.y)
+        movement.y = JUMP_FORCE;
       }
 
       if (movement.x !== 0) {

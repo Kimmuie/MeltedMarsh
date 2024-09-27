@@ -31,6 +31,12 @@ export const Experience = () => {
   const [particleSystem, setParticleSystem] = useState(null);
   const [autoSpin, setAutoSpin] = useState(0);
   const { scene } = useThree();
+  const [isChocolateVisible, setIsChocolateVisible] = useState(true);
+
+  const handleChocolateCollision = () => {
+    setIsChocolateVisible(false);
+    console.log("Chocolate collected!");
+  };
 
   const maps = useMemo(() => ({
     castle_on_hills: {
@@ -70,6 +76,7 @@ export const Experience = () => {
       chocolatePosition: [0, -0.5, 5.2],  
     },
   }), []);
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setAutoSpin((prevSpin) => prevSpin + 0.02);
@@ -214,7 +221,12 @@ export const Experience = () => {
           />
           <CharacterController />
           <Campfire position={maps[selectedMap].campfirePosition} />
-          <Chocolate position={maps[selectedMap].chocolatePosition} rotation={[0, autoSpin, 0]}/>
+          <Chocolate
+            position={maps[selectedMap].chocolatePosition} 
+            onCollision={handleChocolateCollision}
+            rotation={[0, autoSpin, 0]}
+            isVisible={isChocolateVisible}
+          />
         </Physics>
       )}
     </>

@@ -2,6 +2,7 @@
     {
       "level": 1,
       "score": 0,
+      "medalEarned": "ABC",
       "preview": "./img/level/level01.png",
       "mapName": "Level1",
       "timerLimit": 63

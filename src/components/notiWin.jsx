@@ -1,8 +1,60 @@
-import { useState } from 'react'
+import { useState ,useEffect ,useMemo} from 'react'
+import { useNavigate } from 'react-router-dom';
 
-export function NotiWin() {
+export const NotiWin = () => {
+      const navigate = useNavigate();
       let soundPOP = new Audio('./audio/popSound.mp3');
+      const [levelData, setLevelData] = useState([]);
+      const [selectedMedal, setSelectedMedal] = useState(null);
+      const [selectedLevelIndex, setSelectedLevelIndex] = useState(null);
 
+      useEffect(() => {
+        const storedLevelIndex = localStorage.getItem('selectedLevelIndex');
+        if (storedLevelIndex !== null) {
+          setSelectedLevelIndex(parseInt(storedLevelIndex, 10));
+        }
+      }, []);
+
+      useEffect(() => {
+        if (selectedLevelIndex !== null) {
+          fetch('level.json')
+            .then(response => response.json())
+            .then(data => {
+              setLevelData(data);
+              setSelectedMedal(data[selectedLevelIndex].medalEarned || 'OOO');
+              console.log(levelData)
+            })
+            .catch(error => console.error('Error fetching the JSON data:', error));
+        }
+      }, [selectedLevelIndex]);
+
+      const medal = useMemo(() => ({
+        OOO: {
+          Reached: false,
+          Rapided: false,
+          Explored: false,  
+        },
+        AOO: {
+          Reached: true,
+          Rapided: false,
+          Explored: false,  
+        },
+        ABO: {
+          Reached: true,
+          Rapided: true,
+          Explored: false,  
+        },
+        AOC: {
+          Reached: true,
+          Rapided: false,
+          Explored: true,  
+        },
+        ABC: {
+          Reached: true,
+          Rapided: true,
+          Explored: true,  
+        },
+      }), []);
       const nextLevel = () => {
         window.location.reload();    
       };
@@ -28,6 +80,8 @@ export function NotiWin() {
         share.classList.remove("invisible" , "pop-out");
         share.classList.add("pop-in");
       };
+      
+
     return(
     <div id="winUI" class="gameMenu absolute w-full h-full flex justify-center items-center invisible z-20">
       <div id="winBOX" class="flex flex-col items-center h-112 w-88 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
@@ -37,18 +91,30 @@ export function NotiWin() {
         </div>
       <div class="relative flex justify-center items-center">
         {/* Reached Medal */}
-        <div class="group flex  justify-center">
-          <div class="bg-sap border-woodO border-2 rounded-full h-12 w-12 m-3">
-            <img src="./img/medalBurn.svg" width="128" class="p-2" />
+        <div className="group flex justify-center">
+          {selectedMedal && medal[selectedMedal].Reached ? ( 
+              <div className="bg-sap border-woodO border-2 rounded-full h-12 w-12 m-3">
+                <img src="./img/medalReached.svg" width="128" className="p-2" />
+              </div>
+            ) : (
+              <div className="bg-woodO border-woodO border-2 rounded-full h-12 w-12 m-3"></div>
+            )}
+
+            <div className="absolute justify-center items-center bottom-full hidden group-hover:flex bg-woodO text-white text-xs rounded w-28 px-2 py-1">
+              Reached Medal
+              <div className="absolute w-2 h-2 bg-woodO rotate-45 -bottom-1 left-1/2 transform -translate-x-1/2"></div>
+            </div>
           </div>
-          <div class="absolute justify-center items-center bottom-full hidden group-hover:flex bg-woodO text-white text-xs rounded w-28 px-2 py-1">
-            Reached Medal
-            <div class="absolute w-2 h-2 bg-woodO rotate-45 -bottom-1 left-1/2 transform -translate-x-1/2"></div>
-          </div>  
-        </div>
         {/* Rapided Medal */}
         <div class="group flex  justify-center">
-          <div class="bg-woodO border-woodO border-2  rounded-full h-12 w-12 m-3"></div>
+        {selectedMedal && medal[selectedMedal].Rapided ? ( 
+              <div className="bg-sap border-woodO border-2 rounded-full h-12 w-12 m-3">
+                <img src="./img/medalRapided.svg" width="128" className="p-2" />
+              </div>
+            ) : (
+              <div className="bg-woodO border-woodO border-2 rounded-full h-12 w-12 m-3"></div>
+            )}
+
           <div class="absolute justify-center items-center bottom-full hidden group-hover:flex bg-woodO text-white text-xs rounded w-28 px-2 py-1">
             Rapided Medal
             <div class="absolute w-2 h-2 bg-woodO rotate-45 -bottom-1 left-1/2 transform -translate-x-1/2"></div>
@@ -56,7 +122,14 @@ export function NotiWin() {
         </div>
         {/* Explored Medal */}
         <div class="group flex  justify-center">
-          <div class="bg-woodO border-woodO border-2  rounded-full h-12 w-12 m-3"></div>
+        {selectedMedal && medal[selectedMedal].Explored ? ( 
+              <div className="bg-sap border-woodO border-2 rounded-full h-12 w-12 m-3">
+                <img src="./img/medalExplored.svg" width="128" className="p-2" />
+              </div>
+            ) : (
+              <div className="bg-woodO border-woodO border-2 rounded-full h-12 w-12 m-3"></div>
+            )}
+
           <div class="absolute justify-center items-center bottom-full hidden group-hover:flex bg-woodO text-white text-xs rounded w-28 px-2 py-1">
             Explored Medal
             <div class="absolute w-2 h-2 bg-woodO rotate-45 -bottom-1 left-1/2 transform -translate-x-1/2"></div>

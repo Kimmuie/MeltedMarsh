@@ -16,11 +16,11 @@ export function NotiSelect({ onLevelSelect }) {
 
   const handleButtonClick = (event, index) => {
     if (lastClickedButton !== null) {
-      lastClickedButton.classList.remove('border-whiteC');
+      lastClickedButton.classList.remove('border-skyB');
       lastClickedButton.classList.add('border-woodO');
     }
     event.currentTarget.classList.remove('border-woodO');
-    event.currentTarget.classList.add('border-whiteC');
+    event.currentTarget.classList.add('border-skyB');
     setSelectedIndex(index);
     onLevelSelect(index);
     setLastClickedButton(event.currentTarget);

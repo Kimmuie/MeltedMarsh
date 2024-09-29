@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function NotiSelect({ onLevelSelect }) {
@@ -10,20 +10,61 @@ export function NotiSelect({ onLevelSelect }) {
   useEffect(() => {
     fetch('level.json')
       .then(response => response.json())
-      .then(data => setLevelData(data))
+      .then(data => {
+        setLevelData(data);
+      })
       .catch(error => console.error('Error fetching the JSON data:', error));
   }, []);
 
+  const medal = useMemo(() => ({
+    OOO: {
+      Reached: false,
+      Rapided: false,
+      Explored: false,  
+    },
+    AOO: {
+      Reached: true,
+      Rapided: false,
+      Explored: false,  
+    },
+    ABO: {
+      Reached: true,
+      Rapided: true,
+      Explored: false,  
+    },
+    AOC: {
+      Reached: true,
+      Rapided: false,
+      Explored: true,  
+    },
+    ABC: {
+      Reached: true,
+      Rapided: true,
+      Explored: true,  
+    },
+  }), []);
+
   const handleButtonClick = (event, index) => {
     if (lastClickedButton !== null) {
-      lastClickedButton.classList.remove('border-skyB');
+      lastClickedButton.classList.remove('border-sap');
       lastClickedButton.classList.add('border-woodO');
     }
     event.currentTarget.classList.remove('border-woodO');
-    event.currentTarget.classList.add('border-skyB');
+    event.currentTarget.classList.add('border-sap');
+    setLastClickedButton(event.currentTarget);
+  
+    const allLevelNumbers = document.querySelectorAll('.levelCount');
+    allLevelNumbers.forEach(elem => {
+      elem.classList.remove('bg-sap', 'text-woodO');
+      elem.classList.add('bg-woodO', 'text-whiteC');
+    });
+  
+    const levelNumberElement = event.currentTarget.querySelector('.levelCount');
+    levelNumberElement.classList.remove('bg-woodO', 'text-whiteC');
+    levelNumberElement.classList.add('bg-sap', 'text-woodO');
+  
     setSelectedIndex(index);
     onLevelSelect(index);
-    setLastClickedButton(event.currentTarget);
   };
 
   const notiSelectClose = () => {
@@ -59,9 +100,16 @@ export function NotiSelect({ onLevelSelect }) {
         cutscene.classList.add("popdown2");
         navigate(`/gamePage`);
       }, 2500);
-        this.removeEventListener("animationend", animationEndHandler);
+      this.removeEventListener("animationend", animationEndHandler);
     });
   };
+
+  const MedalIcon = ({ type, earned }) => (
+    <div className={`border-woodO border-3 rounded-full h-7 w-7 m-1 ${earned ? 'bg-sap border-2' : 'bg-woodI '}`}>
+      {earned && <img src={`./img/medal${type}.svg`} width="128" className="p-1" alt={`${type} medal`} />}
+    </div>
+  );
+
   return (
     <div onClick={notiSelectClose} id="selectUI" className="homeMenu absolute w-full h-full flex justify-center items-center invisible z-20">
       <div onClick={notiSelectExcept} id="selectBOX" className="flex flex-col items-center h-112 w-144 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
@@ -72,22 +120,17 @@ export function NotiSelect({ onLevelSelect }) {
           {levelData.map((level, index) => (
             <div key={index} className="level-item flex justify-center hover:scale-95">
               <button
-                className="flex justify-center items-center flex-col h-28 w-28 rounded-lg bg-center bg-cover border-woodO box-border border-4 levelHover hover:scale-110"
+                className="flex justify-center items-center flex-col h-28 w-28 rounded-xl bg-center bg-cover border-woodO box-border border-4 levelHover hover:scale-110"
                 onClick={event => handleButtonClick(event, index)}
-                style={{ backgroundImage: `url('./img/level/level01.png')` }}
+                style={{ backgroundImage: `url('./img/level/test.level.jpg')` }}
               >
-
-                <div className="text-woodO font-bold text-xl h-8 w-9 rounded-full bg-whiteC mt-4 mb-2 levelB z-10">{level.level}</div>
+                <div className=" text-whiteC font-bold text-xl h-8 w-9 rounded-full bg-woodO border-woodO border-3 mt-4 mb-2 levelB levelCount z-10">{level.level}</div>
                 <div className="flex flex-row justify-center levelB z-10">
-                  {[...Array(3)].map((_, i) => (
-                    <img
-                      key={i}
-                      src={`./img/${i < level.score ? 'fire2' : 'fire1'}.svg`}
-                      width="32"
-                      height="32"
-                      alt="fire icon"
-                    />
-                  ))}
+                  <div className="group flex justify-center">
+                    <MedalIcon type="Reached" earned={medal[level.medalEarned]?.Reached} />
+                    <MedalIcon type="Rapided" earned={medal[level.medalEarned]?.Rapided} />
+                    <MedalIcon type="Explored" earned={medal[level.medalEarned]?.Explored} />
+                  </div>
                 </div>
               </button>
             </div>

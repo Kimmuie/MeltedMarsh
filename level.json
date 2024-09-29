@@ -10,6 +10,7 @@
     {
       "level": 2,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "castle_on_hills",
       "timerLimit": 123
@@ -17,6 +18,7 @@
     {
       "level": 3,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "demo_level",
       "timerLimit": 123
@@ -24,6 +26,7 @@
     {
       "level": 4,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "demo_level",
       "timerLimit": 123
@@ -31,6 +34,7 @@
     {
       "level": 5,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "demo_level",
       "timerLimit": 123
@@ -38,6 +42,7 @@
     {
       "level": 6,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "demo_level",
       "timerLimit": 123
@@ -45,6 +50,7 @@
     {
       "level": 7,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "demo_level",
       "timerLimit": 123
@@ -52,6 +58,7 @@
     {
       "level": 8,
       "score": 0,
+      "medalEarned": "OOO",
       "preview": "./img/level/level02.png",
       "mapName": "demo_level",
       "timerLimit": 123

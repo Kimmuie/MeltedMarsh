@@ -7,6 +7,7 @@ import { NotiEsc } from '../components/notiEsc';
 import { NotiGuide } from '../components/notiGuide';
 import { NotiSetting } from '../components/notiSetting';
 import { NotiLose } from '../components/notiLose';
+import { NotiWin } from '../components/notiWin';
 import { Game } from '../components/sectionGame';
 
 const keyboardMap = [
@@ -38,6 +39,7 @@ export function GamePage() {
     <KeyboardControls map={keyboardMap}>
       <Cutscene id="cutscene" />
       <NotiLose/>
+      <NotiWin/>
       <NotiEsc/>
       <NotiGuide/>
       <NotiSetting/>

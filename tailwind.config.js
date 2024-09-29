@@ -17,6 +17,7 @@ module.exports = {
         'woodI': '#cd9a65',
         'whiteC':'#F0E1D1',
         'sap':'#FC9425',
+        'gold':'#e8b923',
         'skyB':'#a8def0'
       },
       spacing: {

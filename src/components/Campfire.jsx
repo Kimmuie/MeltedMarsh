@@ -1,30 +1,46 @@
+import React, { useRef } from 'react';
 import { useGLTF } from "@react-three/drei";
-import React, { useEffect, useRef } from "react";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 
-export function Campfire({ position = [0, 0, 0], scale = [0.06,0.06,0.06], ...props }) {
-  const group = useRef();
+export function Campfire({ scale = [0.06, 0.06, 0.06], position, onCollision, ...props }) {
   const { nodes, materials } = useGLTF("/models/campfire.glb");
-  
+  const rigidBodyRef = useRef();
+
+  const handleCollision = () => {
+    if (rigidBodyRef.current) {
+      rigidBodyRef.current.setEnabled(false);
+    }
+    onCollision();
+  };
 
   return (
-    <group ref={group} {...props} position={position} scale={scale} dispose={null}>
-    <group name="Scene">
-      {nodes?.Rock && (
-        <mesh
-          name="campfire"
-          geometry={nodes.Rock.geometry}
-          material={materials["Material.001"]}
-        />
-      )}
-      {nodes?.Wood && (
-        <mesh
-          name="campfire"
-          geometry={nodes.Wood.geometry}
-          material={materials["Material.002"]}
-        />
-      )}
-    </group>
-  </group>
+    <RigidBody 
+      type="fixed" 
+      colliders={false} 
+      position={position} 
+      ref={rigidBodyRef}
+      onCollisionEnter={handleCollision}
+    >
+      <group {...props} scale={scale}>
+        <group name="Scene">
+          {nodes?.Rock && (
+            <mesh
+              name="campfire"
+              geometry={nodes.Rock.geometry}
+              material={materials["Material.001"]}
+            />
+          )}
+          {nodes?.Wood && (
+            <mesh
+              name="campfire"
+              geometry={nodes.Wood.geometry}
+              material={materials["Material.002"]}
+            />
+          )}
+        </group>
+      </group>
+      <CuboidCollider args={[0.06, 0.06, 0.06]} />
+    </RigidBody>
   );
 }
 

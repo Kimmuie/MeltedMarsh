@@ -1,9 +1,9 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import React, { useEffect, useRef } from "react";
 
-export function Character({ animation, ...props }) {
+export function Character({ animation, currentModel, ...props }) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/models/character2.glb");
+  const { nodes, materials, animations } = useGLTF("/models/character1.glb");
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
     actions[animation]?.reset().fadeIn(0.24).play();
@@ -12,9 +12,9 @@ export function Character({ animation, ...props }) {
 
   useEffect(() => {
     if (materials.Material) {
-      materials.Material.color.set("#ff0000"); // Example: Set the material color to red
-      materials.Material.metalness = 0.5;      // Example: Set the metalness value
-      materials.Material.roughness = 0.8;      // Example: Set the roughness value
+      materials.Material.color.set("#ff0000");
+      materials.Material.metalness = 0.5;     
+      materials.Material.roughness = 0.8;     
     }
   }, [materials]);
 
@@ -26,8 +26,7 @@ export function Character({ animation, ...props }) {
           <skinnedMesh
             name="body"
             geometry={nodes.body.geometry}
-            material={materials.Material}
-            // material={materials["Material.001"]}
+            material={materials["White"]}
             skeleton={nodes.body.skeleton}
             castShadow
             receiveShadow
@@ -35,7 +34,7 @@ export function Character({ animation, ...props }) {
           <skinnedMesh
             name="eye"
             geometry={nodes.eye.geometry}
-            material={materials["Material.001"]}
+            material={materials["Black.002"]}
             skeleton={nodes.eye.skeleton}
             castShadow
             receiveShadow
@@ -43,7 +42,7 @@ export function Character({ animation, ...props }) {
           <skinnedMesh
             name="hand-"
             geometry={nodes["hand-"].geometry}
-            material={materials.Material}
+            material={materials["White"]}
             skeleton={nodes["hand-"].skeleton}
             castShadow
             receiveShadow
@@ -51,7 +50,7 @@ export function Character({ animation, ...props }) {
           <skinnedMesh
             name="leg"
             geometry={nodes.leg.geometry}
-            material={materials.Material}
+            material={materials["White"]}
             skeleton={nodes.leg.skeleton}
             castShadow
             receiveShadow
@@ -62,4 +61,4 @@ export function Character({ animation, ...props }) {
   );
 }
 
-useGLTF.preload("/models/character2.glb");
+useGLTF.preload("/models/character1.glb");

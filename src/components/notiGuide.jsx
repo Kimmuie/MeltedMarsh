@@ -24,10 +24,10 @@ export function NotiGuide() {
         <div class="w-full relative flex p-5 h-120">
           <p class="break-words overflow-y-auto">
             <span class="font-semibold">Objective</span><br />
-            is to reach the campfire before its burn out (timer ran out) for burning marshmallow. Moreover there are 3 medals available : Reached, Quicken, and Observant.
+            is to reach the campfire before its burn out (timer ran out) for burning marshmallow. Moreover there are 3 medals available : Reached, Rapided, and Explored.
             <br /><br />
             <span class="font-semibold">เป้าหมาย</span><br />
-            คือการไปถึงแคมป์ไฟก่อนที่มันจะมอดดับ<br />(หมดเวลา) เพื่อปิ้งมาร์ชแมลโลว์และผ่านด่าน <br />โดยจะมีเหรียญรางวัล 3 เหรียญด้วยกันนั่นคือ <br />การถึงจุดหมาย, การทำเวลา, การช่างสังเกต
+            คือการไปถึงแคมป์ไฟก่อนที่มันจะมอดดับ<br />(หมดเวลา) เพื่อปิ้งมาร์ชแมลโลว์และผ่านด่าน <br />โดยจะมีเหรียญรางวัล 3 เหรียญด้วยกันนั่นคือ <br />การถึงจุดหมาย, การทำเวลา, การสำรวจ
             <br /><br />
             <span class="font-semibold">Keybind</span><br />
             Walk Character : Click <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd><br />

@@ -47,7 +47,7 @@ export function NotiLose() {
     <div id="loseUI" class="gameMenu absolute w-full h-full flex justify-center items-center invisible z-20">
       <div id="loseBOX" class="flex flex-col items-center h-88 w-88 box-border bg-woodI border-4 border-woodO rounded-3xl absolute z-20">
         <div class="relative flex justify-center font-bold z-30 h-8 w-28 box-border rounded-b-lg bg-woodO text-whiteC mb-1">Game Result</div>
-        <div class="relative flex justify-center items-center">
+        <div class="relative flex justify-center items-center mx-4">
         <img src="./img/MMloseLogo.png" class="h-40 w-auto m-4" />
         </div>
         <div onClick={notiShare}  class="relative flex justify-center items-center">

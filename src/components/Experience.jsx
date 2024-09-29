@@ -23,6 +23,13 @@ import ParticleSystem, {
 
 const cubeColors = [0xff5a00, 0xff9a00, 0xffce00];
 
+let soundPOP = new Audio('./audio/popSound.mp3');
+const notiWin = () => {
+  const win = document.getElementById("winUI");
+  soundPOP.play();
+  win.classList.remove("invisible" , "pop-out");
+  win.classList.add("pop-in");
+};
 export const Experience = () => {
   const shadowCameraRef = useRef();
   const [levelData, setLevelData] = useState([]);
@@ -38,6 +45,10 @@ export const Experience = () => {
     console.log("Chocolate collected!");
   };
 
+  const handleCampfireCollision = () => {
+    notiWin();
+    console.log("Reached Campfire!");
+  };
   const maps = useMemo(() => ({
     castle_on_hills: {
       scale: 3,
@@ -220,7 +231,10 @@ export const Experience = () => {
             model={`models/${selectedMap}.glb`}
           />
           <CharacterController />
-          <Campfire position={maps[selectedMap].campfirePosition} />
+          <Campfire 
+            position={maps[selectedMap].campfirePosition} 
+            onCollision={handleCampfireCollision}
+            />
           <Chocolate
             position={maps[selectedMap].chocolatePosition} 
             onCollision={handleChocolateCollision}

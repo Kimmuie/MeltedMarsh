@@ -1,4 +1,4 @@
-# Melted Marsh (Under Development)
+# Melted Marsh
 
 ### What is Melted Marsh?
 **Melted Marsh** is a website game where you are a marshmallow guy (Marshy) and you need to get near the campfire before the fire lights out. This game introduced my coding skills that I have learned, including 3D modeling that is rendered by ThreeJS and also with physics controlled by Rapier. For the campfire particle I generated with Three-Nebula. I created this when I was in grade 12 for improve myself.
@@ -27,6 +27,7 @@ This game is controlled with WASD Keys and Mouse the same as with a normal game,
 <br>  
 
 This website is under development. However, It playable on desktop only and you can still play as demo by click on green button that say <>Code >> Download Zip >> Extract All >> Open in VSCode and use "npm run dev" in terminal.(don't forget to cd location)
+It will playable as website when it finished.
 
 ### Flowchart 
 <div>

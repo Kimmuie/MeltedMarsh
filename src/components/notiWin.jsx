@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const NotiWin = () => {
       const navigate = useNavigate();
-      let soundPOP = new Audio('./audio/popSound.mp3');
+      let soundPOP = new Audio('./audio/loseSFX.mp3');
       const [levelData, setLevelData] = useState([]);
       const [selectedMedal, setSelectedMedal] = useState(null);
       const [selectedLevelIndex, setSelectedLevelIndex] = useState(null);
@@ -22,7 +22,6 @@ export const NotiWin = () => {
             .then(data => {
               setLevelData(data);
               setSelectedMedal(data[selectedLevelIndex].medalEarned || 'OOO');
-              console.log(levelData)
             })
             .catch(error => console.error('Error fetching the JSON data:', error));
         }

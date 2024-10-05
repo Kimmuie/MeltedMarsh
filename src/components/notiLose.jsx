@@ -1,22 +1,10 @@
-import { useState } from 'react'
+import { useContext , useState } from 'react'
+import { dataContext } from '../App';
 
 export function NotiLose() {
-
-    // const notiLoseClose = () => {
-    //     const lose = document.getElementById("loseUI");
-    //     lose.classList.remove("pop-in");
-    //     lose.classList.add("pop-out");
-    //     lose.addEventListener("animationend", function animationEndHandler() {
-    //       lose.classList.add("invisible");
-    //       lose.classList.remove("pop-out");
-    //         this.removeEventListener("animationend", animationEndHandler);
-    //     });
-    //   };
-
-    //   const notiLoseExcept = (event) => {
-    //     event.stopPropagation();
-    //   };
+  const {gameState , setGameState}  = useContext(dataContext)
       let soundPOP = new Audio('./audio/popSound.mp3');
+      soundPOP.volume = gameState.audio.SFX;
 
       const levelRestart = () => {
         window.location.reload();    

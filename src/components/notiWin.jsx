@@ -1,9 +1,12 @@
-import { useState ,useEffect ,useMemo} from 'react'
+import { useContext, useState ,useEffect ,useMemo} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { dataContext } from '../App';
 
 export const NotiWin = () => {
       const navigate = useNavigate();
-      let soundPOP = new Audio('./audio/loseSFX.mp3');
+      const {gameState , setGameState}  = useContext(dataContext)
+      let soundPOP = new Audio('./audio/popSound.mp3');
+      soundPOP.volume = gameState.audio.SFX;
       const [levelData, setLevelData] = useState([]);
       const [selectedMedal, setSelectedMedal] = useState(null);
       const [selectedLevelIndex, setSelectedLevelIndex] = useState(null);

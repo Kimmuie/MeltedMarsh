@@ -1,18 +1,11 @@
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { CapsuleCollider, RigidBody } from "@react-three/rapier";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { MathUtils, Vector3 } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { Character } from "./Character";
-
-let soundPOP = new Audio('./audio/popSound.mp3');
-const notiLose = () => {
-  const lose = document.getElementById("loseUI");
-  soundPOP.play();
-  lose.classList.remove("invisible" , "pop-out");
-  lose.classList.add("pop-in");
-};
+import { dataContext } from '../App';
 
 const normalizeAngle = (angle) => {
   while (angle > Math.PI) angle -= 2 * Math.PI;
@@ -36,6 +29,17 @@ const lerpAngle = (start, end, t) => {
 };
 
 export const CharacterController = () => {
+  const {gameState , setGameState}  = useContext(dataContext)
+
+  let loseSFX = new Audio('./audio/loseSFX.mp3');
+loseSFX.volume = gameState.audio.SFX;
+const notiLose = () => {
+  const lose = document.getElementById("loseUI");
+  loseSFX.play();
+  lose.classList.remove("invisible" , "pop-out");
+  lose.classList.add("pop-in");
+};
+
   const WALK_SPEED = 0.8; // Hardcoded walk speed
   const RUN_SPEED = 1.8; // Hardcoded run speed
   const JUMP_FORCE = 5; 

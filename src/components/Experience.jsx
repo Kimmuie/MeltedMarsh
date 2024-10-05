@@ -1,7 +1,8 @@
 import { Environment, OrthographicCamera } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useContext,  useRef, useState, useEffect, useMemo } from "react";
 import { CharacterController } from "./CharacterController";
+import { dataContext } from '../App';
 import { Map } from "./Map";
 import { Campfire } from "./Campfire";
 import { Chocolate } from "./Chocolate";
@@ -23,15 +24,18 @@ import ParticleSystem, {
 
 const cubeColors = [0xff5a00, 0xff9a00, 0xffce00];
 
-let soundPOP = new Audio('./audio/popSound.mp3');
+export const Experience = () => {
+const {gameState , setGameState}  = useContext(dataContext)
 let winSFX = new Audio('./audio/winSFX.mp3');
+winSFX.volume = gameState.audio.SFX;
+
 const notiWin = () => {
   const win = document.getElementById("winUI");
   winSFX.play();
   win.classList.remove("invisible" , "pop-out");
   win.classList.add("pop-in");
 };
-export const Experience = () => {
+
   const shadowCameraRef = useRef();
   const [levelData, setLevelData] = useState([]);
   const [selectedMap, setSelectedMap] = useState(null);

@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useContext , useState } from 'react'
+import { dataContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
 export function NotiEsc() {
+  const {gameState , setGameState}  = useContext(dataContext)
   let soundPOP = new Audio('./audio/popSound.mp3');
+  soundPOP.volume = gameState.audio.SFX;
   const navigate = useNavigate();
 
     const notiEscClose = () => {

@@ -1,6 +1,29 @@
-import { useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { dataContext } from '../App';
 
 export function NotiSetting() {
+    const {gameState , setGameState}  = useContext(dataContext)
+
+    useEffect(() => {
+      console.log(gameState.audio);
+    }, [gameState.audio]);
+
+    const handleMusicVolumeChange = (event) => {
+      const newVolume = parseFloat(event.target.value);
+      setGameState((prevState) => ({
+        ...prevState,
+        audio: { ...prevState.audio, Music: newVolume }
+      }));
+    };
+
+
+    const handleSFVolumeChange = (event) => {
+      const newVolume = parseFloat(event.target.value);
+      setGameState((prevState) => ({
+        ...prevState,
+        audio: { ...prevState.audio, SFX: newVolume }
+      }));
+    };
 
     const notiSettingClose = () => {
       const setting = document.getElementById("settingUI");
@@ -25,14 +48,14 @@ export function NotiSetting() {
           <img src="./img/music.svg" width="64" height="64" class="m-5"></img>
           <div class="flex flex-col w-full m-5">
             <div class="relative flex justify-center font-bold z-30 text-woodO text-xl">Music</div>
-            <input type="range" id="music-slider" class="w-full slider mt-2" min="0" max="1" step="0.01" defaultValue="0.5" />
+            <input type="range" id="music-slider" class="w-full slider mt-2" min="0" max="1" step="0.01" defaultValue={gameState.audio.Music} onChange={handleMusicVolumeChange}/>
           </div>
         </div>
         <div class="w-full relative flex justify-center">
           <img src="./img/sound.svg" width="64" height="64" class="m-5"></img>
           <div class="flex flex-col w-full m-5">
             <div class="relative flex justify-center font-bold z-30 text-woodO text-xl">SoundFX</div>
-            <input type="range" id="sound-slider" class="w-full slider mt-2" min="0" max="1" step="0.01" defaultValue="0.5" />
+            <input type="range" id="sound-slider" class="w-full slider mt-2" min="0" max="1" step="0.01" defaultValue={gameState.audio.SFX} onChange={handleSFVolumeChange}/>
           </div>
         </div>
         <div class="w-full relative flex justify-center">

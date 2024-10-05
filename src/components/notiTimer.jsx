@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export function NotiTimer() {
+export function NotiTimer({stopTimerRef}) {
   const [levelData, setLevelData] = useState([]);
   const [selectedLevelIndex, setSelectedLevelIndex] = useState(null);
   const [timer, setTimer] = useState([]);
@@ -30,7 +30,7 @@ export function NotiTimer() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimer(prevTimer => (prevTimer > 0 ? prevTimer - 1 : 0));
+    setTimer(prevTimer => (prevTimer > 0 ? prevTimer - 1 : 0));
     }, 1000);
     return () => clearInterval(interval);
   }, []);

@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useContext , useState } from 'react'
+import { dataContext } from '../App';
 
 export function Information() {
-    let soundPOP = new Audio('./audio/popSound.mp3');
+  const {gameState , setGameState}  = useContext(dataContext)
+  let soundPOP = new Audio('./audio/popSound.mp3');
+  soundPOP.volume = gameState.audio.SFX;
 
     const notiInfo = () => {
       const information = document.getElementById("informationUI");

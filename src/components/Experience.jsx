@@ -1,6 +1,6 @@
 import { Environment, OrthographicCamera } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
-import { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { CharacterController } from "./CharacterController";
 import { Map } from "./Map";
 import { Campfire } from "./Campfire";
@@ -24,9 +24,10 @@ import ParticleSystem, {
 const cubeColors = [0xff5a00, 0xff9a00, 0xffce00];
 
 let soundPOP = new Audio('./audio/popSound.mp3');
+let winSFX = new Audio('./audio/winSFX.mp3');
 const notiWin = () => {
   const win = document.getElementById("winUI");
-  soundPOP.play();
+  winSFX.play();
   win.classList.remove("invisible" , "pop-out");
   win.classList.add("pop-in");
 };

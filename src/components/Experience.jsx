@@ -52,7 +52,14 @@ const notiWin = () => {
 
   const handleCampfireCollision = () => {
     notiWin();
+    if (!gameState.isGameOver){
+    setGameState((prevState) => ({
+      ...prevState,
+      isGameOver: true,
+    }))
+  }
     console.log("Reached Campfire!");
+    console.log(gameState.isGameOver);
   };
   const maps = useMemo(() => ({
     castle_on_hills: {

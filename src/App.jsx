@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState , useEffect, useRef } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import './custom.css';
@@ -17,7 +17,23 @@ function App() {
             SFX: 0.5
         }
     });
-    
+    const bgMusicRef = useRef(new Audio('./audio/bgMusic.mp3'));
+    useEffect(() => {
+        const bgMusic = bgMusicRef.current;
+        bgMusic.loop = true; 
+        bgMusic.play().catch(error => console.log("Audio play failed:", error));
+        return () => {
+            if (bgMusic) {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        const bgMusic = bgMusicRef.current;
+        bgMusic.volume = gameState.audio.Music;
+    }, [gameState.audio.Music]);
     return (
         <dataContext.Provider value={{ gameState, setGameState }}>
         <Router>

@@ -120,6 +120,12 @@ const notiLose = () => {
         setIsPaused(true);
         console.log("You lose! Character fell off the map.");
         notiLose();
+        if (!gameState.isGameOver){
+          setGameState((prevState) => ({
+            ...prevState,
+            isGameOver: true,
+          }))
+        }
       }
 
       if (get().forward) {
